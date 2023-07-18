@@ -18,52 +18,62 @@ class TestCalculator(unittest.TestCase):
         ('check string cast', '2', '2', 4),
         ('check string cast', '2.0', '2', 4),
         ('check adding str + int', '2', 2, 4),
-
-        # test for fun mult
-        ('mult_positive', 2, 3, 6),
-        ('mult_negative', -2, 3, -6),
-        ('mult_zero', 2, 0, 0),
-        ('mult_float_numbers', -2.5, 4, -10.0),
-
-        # test for  fun division
-        ('division_positive', 6, 3, 2),
-        ('division_negative', -6, 3, -2),
-        ('division_by_zero', 4, 0, ZeroDivisionError),
-
-        # test for fun subtract
-        ('subtract_positive', 5, 3, 2),
-        ('subtract_negative', 3, 5, -2),
-        ('subtract_zero', 5, 0, 5),
-        ('subtract_float_numbers', 5.5, 3.2, 2.3),
-
-        # test for fun power
-        ('power_positive', 2, 3, 8),
-        ('power_negative', 2, -3, 0.125),
-        ('power_zero', 5, 0, 1),
-        # test for fun square_root
-        ('square_root_positive', 25, 5),
-        ('square_root_float', 2.25, 1.5),
-        ('square_root_negative', -25, ValueError)
     ])
     def test_add_func(self, name, a, b, result):
         self.assertEqual(result, _calc.add(a, b))
 
-    def test_add_two_positive_numbers(self):
-        self.assertEqual(_calc.add(2, 2), 4)
+    @parameterized.expand([
+        ('mult_positive', 2, 3, 6),
+        ('mult_negative', -2, 3, -6),
+        ('mult_zero', 2, 0, 0),
+        ('mult_float_numbers', -2.5, 4, -10.0),
+    ])
+    def test_mult(self, name, a, b, result):
+        self.assertEqual(result, _calc.mult(a, b))
 
-    def test_add_two_negative_numbers(self):
-        self.assertEqual(_calc.add(-2, -2), -4)
+    @parameterized.expand([
+        ('division_positive', 6, 3, 2),
+        ('division_negative', -6, 3, -2),
+        ('division_by_zero', 4, 0, ZeroDivisionError),
+        ('division_float', 8.0, 2.0, 4.0),
+    ])
+    def test_division(self, name, a, b, result):
+        if isinstance(result, type):
+            with self.assertRaises(result):
+                _calc.div(a, b)
+        else:
+            self.assertEqual(result, _calc.div(a, b))
 
-    def test_add_number_and_zero(self):
-        self.assertEqual(_calc.add(2, 0), 2)
+    @parameterized.expand([
+        ('subtract_positive', 5, 3, 2),
+        ('subtract_negative', 3, 5, -2),
+        ('subtract_zero', 5, 0, 5),
+        ('subtract_float_numbers', 5.5, 3.2, 2.3),
+    ])
+    def test_subtract(self, name, a, b, result):
+        self.assertEqual(result, _calc.subtract(a, b))
 
-    def test_add_func_type_error(self):
-        with self.assertRaises(TypeError):
-            _calc.add('a', '2')
+    @parameterized.expand([
+        ('power_positive', 2, 3, 8),
+        ('power_negative', 2, -3, 0.125),
+        ('power_zero', 5, 0, 1),
+        ('power_float', 2.0, 2.0, 4.0),
+    ])
+    def test_power(self, name, a, b, result):
+        self.assertEqual(result, _calc.power(a, b))
 
-    def test_devision_by_zero(self):
-        with self.assertRaises(ZeroDivisionError):
-            _calc.div(4, 0)
+    @parameterized.expand([
+        ('square_root_positive', 25, 5),
+        ('square_root_float', 2.25, 1.5),
+        ('square_root_negative', -25, ValueError),
+        ('square_root_zero', 0, 0),
+    ])
+    def test_square_root(self, name, a, result):
+        if isinstance(result, type):
+            with self.assertRaises(result):
+                _calc.square_root(a)
+        else:
+            self.assertEqual(result, _calc.square_root(a))
 
 
 if __name__ == '__main__':
