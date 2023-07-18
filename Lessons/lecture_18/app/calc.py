@@ -31,6 +31,9 @@ class Calculator:
     def square_root(self, a):
         return sqrt(a)
 
+    def subtract(self, a, b):
+        pass
+
 
 if __name__ == "__main__":
     calc = Calculator()
