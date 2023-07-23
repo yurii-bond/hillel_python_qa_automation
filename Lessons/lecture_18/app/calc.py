@@ -29,6 +29,8 @@ class Calculator:
         return pow(a, b)
 
     def square_root(self, a):
+        # if isinstance(a<0):
+        #     raise ValueError('The square root of a negative number does not exist among the set of Real Numbers')
         return sqrt(a)
 
 
