@@ -1,6 +1,7 @@
 from math import sqrt, pow
 import sys
 
+
 class Calculator:
     def add(self, a, b):
         if isinstance(a, str):
