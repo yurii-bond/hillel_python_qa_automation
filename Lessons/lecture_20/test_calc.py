@@ -1,12 +1,8 @@
 import pytest
-# pytestmark = [
-#     pytest.mark.add_function,
-#     pytest.mark.division
-# ]
-
 import sys
-
 from ..lecture_18.app import calc
+
+_calc = calc.Calculator()
 
 
 @pytest.fixture
@@ -85,3 +81,27 @@ def test_sqare_root_for_sixteen(_calc):
 )
 def test_substract(_calc, a, b, result):
     assert _calc.subsctract(a, b) == result
+@pytest.mark.regression
+def test_power(_calc):
+    assert _calc.power(2, 3) == 8
+
+@pytest.mark.regression
+def test_power_negative_exponent(_calc):
+    assert _calc.power(2, -3) == 0.125
+
+@pytest.mark.regression
+def test_mult(_calc):
+    assert _calc.mult(2, 3) == 6
+
+@pytest.mark.regression
+def test_mult_negative(_calc):
+    assert _calc.mult(-2, 3) == -6
+
+@pytest.mark.regression
+def test_square_root_negative(_calc):
+    with pytest.raises(ValueError):
+        _calc.square_root(-4)
+
+@pytest.mark.smoke
+def test_division_by_two(_calc):
+    assert _calc.div(10, 2) == 5
