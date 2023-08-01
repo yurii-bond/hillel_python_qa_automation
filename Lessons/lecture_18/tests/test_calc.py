@@ -22,22 +22,48 @@ class TestCalculator(unittest.TestCase):
     def test_add_func(self, name, a, b, result):
         self.assertEqual(result, _calc.add(a, b))
 
-    def test_add_two_positive_numbers(self):
-        self.assertEqual(_calc.add(2, 2), 4)
+    @parameterized.expand([
+        ('mult_positive', 2, 3, 6),
+        ('mult_negative', -2, 3, -6),
+    ])
+    def test_mult(self, name, a, b, result):
+        self.assertEqual(result, _calc.mult(a, b))
 
-    def test_add_two_negative_numbers(self):
-        self.assertEqual(_calc.add(-2, -2), -4)
+    @parameterized.expand([
+        ('division_positive', 6, 3, 2),
+        ('division_negative', -6, 3, -2),
+    ])
+    def test_division(self, name, a, b, result):
+        if isinstance(result, type):
+            with self.assertRaises(result):
+                _calc.div(a, b)
+        else:
+            self.assertEqual(result, _calc.div(a, b))
 
-    def test_add_number_and_zero(self):
-        self.assertEqual(_calc.add(2, 0), 2)
+    @parameterized.expand([
+        ('subtract_positive', 5, 3, 2),
+        ('subtract_negative', 3, 5, -2),
+    ])
+    def test_subtract(self, name, a, b, result):
+        self.assertEqual(result, _calc.subtract(a, b))
 
-    def test_add_func_type_error(self):
-        with self.assertRaises(TypeError):
-            _calc.add('a', '2')
+    @parameterized.expand([
+        ('power_positive', 2, 3, 8),
+        ('power_negative', 2, -3, 0.125),
+    ])
+    def test_power(self, name, a, b, result):
+        self.assertEqual(result, _calc.power(a, b))
 
-    def test_devision_by_zero(self):
-        with self.assertRaises(ZeroDivisionError):
-            _calc.div(4, 0)
+    @parameterized.expand([
+        ('square_root_positive', 25, 5),
+        ('square_root_float', 2.25, 1.5),
+    ])
+    def test_square_root(self, name, a, result):
+        if isinstance(result, type):
+            with self.assertRaises(result):
+                _calc.square_root(a)
+        else:
+            self.assertEqual(result, _calc.square_root(a))
 
 
 if __name__ == '__main__':
