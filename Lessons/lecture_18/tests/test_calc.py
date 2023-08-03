@@ -16,11 +16,11 @@ class TestCalculator(unittest.TestCase):
     #     ('mixed numbers', -5.0, 7, 2.0),
     #     ('mixed numbers', -5.0, 7.0, 2),
     #     ('check string cast', '2', '2', 4),
-    #     ('check string cast', '2.0', '2', 4),
-    #     ('check adding str + int', '2', 2, 4)
-    # ])
-    # def test_add_func(self, name, a, b, result):
-    #     self.assertEqual(result, _calc.add(a, b))
+    #      ('check string cast', '2.0', '2', 4),
+    #      ('check adding str + int', '2', 2, 4)
+    #  ])
+    #  def test_add_func(self, name, a, b, result):
+    #      self.assertEqual(result, _calc.add(a, b))
     #
     # # def test_add_two_positive_numbers(self):
     #     self.assertEqual(_calc.add(2, 2), 4)
