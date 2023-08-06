@@ -1,6 +1,6 @@
 import pytest
 from parameterized import parameterized
-from ..lecture_18.app import calc
+from ..lecture_18_hw.app import calc
 
 
 @pytest.fixture
