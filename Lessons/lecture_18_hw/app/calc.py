@@ -1,4 +1,5 @@
 from math import sqrt, pow
+import sys
 
 
 class Calculator:
@@ -37,3 +38,6 @@ class Calculator:
 if __name__ == "__main__":
     calc = Calculator()
     calc.add('2.0', '2')
+    print(sys.platform)
+    print(sys.version_info)
+    print(sys.version)
